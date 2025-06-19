@@ -25,7 +25,7 @@ build:
       value: "5432"
 run:
   runtime-version: 3.11.12
-  command: python3 -m gunicorn myproject.wsgi:application --bind 0.0.0.0:8080
+  command: bash -c "python3 manage.py migrate --noinput && python3 -m gunicorn myproject.wsgi:application --bind 0.0.0.0:8080 --timeout 120 --workers 3"
   network:
     port: 8080
   env:
