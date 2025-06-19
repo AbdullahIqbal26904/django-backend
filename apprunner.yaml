@@ -25,7 +25,7 @@ build:
       value: "5432"
 run:
   runtime-version: python311
-  command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8080
+  command: gunicorn myproject.wsgi:application
   network:
     port: 8080
   env:
