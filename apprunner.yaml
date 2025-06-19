@@ -1,5 +1,5 @@
 version: 1.0
-runtime: python312
+runtime: python311
 build:
   commands:
     build:
@@ -27,7 +27,7 @@ build:
     - name: DB_PORT
       value: "5432"
 run:
-  runtime-version: 3.12
+  runtime-version: 3.11.12
   command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8080
   network:
     port: 8080
