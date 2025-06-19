@@ -1,0 +1,12 @@
+django>=5.2.1
+django-allauth
+django-cors-headers
+django-filter
+django-rest-framework
+djangorestframework
+djangorestframework-simplejwt
+drf-yasg
+gunicorn
+psycopg2-binary
+python-dotenv
+whitenoise
