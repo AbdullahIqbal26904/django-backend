@@ -24,8 +24,11 @@ build:
     - name: DB_PORT
       value: "5432"
 run:
-  runtime-version: python311
-  command: gunicorn myproject.wsgi:application
+  runtime-version: 3.11
+  pre-run:
+    - pip3 install pipenv
+    - pipenv install
+  command: pipenv run gunicorn myproject.wsgi --log-file -
   network:
     port: 8080
   env:
