@@ -134,6 +134,7 @@ AUTHENTICATION_BACKENDS = (
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Next.js dev server
     "https://yourdomain.com",  # Production domain
+    "https://saa-s-portal-frontend.vercel.app",  # Vercel-hosted frontend
 ]
 
 # Allow credentials (cookies)
