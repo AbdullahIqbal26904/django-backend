@@ -1,10 +1,7 @@
 version: 1.0
 runtime: python311
 build:
-  commands:
-    - pip install --upgrade pip
-    - pip install -r requirements.txt
-    - python manage.py collectstatic --noinput
+  command: "pip install --upgrade pip && pip install -r requirements.txt && python manage.py collectstatic --noinput"
 run:
   command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8080
 environment:
