@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
 # Parse ALLOWED_HOSTS from environment variable, default to App Runner wildcard for production
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*.awsapprunner.com').split(',')
+ALLOWED_HOSTS = ['*']
 
 
 
