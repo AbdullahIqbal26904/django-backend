@@ -1,0 +1,19 @@
+version: 1.0
+runtime: python3.11
+build:
+  commands:
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - python manage.py collectstatic --noinput
+run:
+  command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8080
+environment:
+  variables:
+    SECRET_KEY: "django-insecure-wb&+eocg@n!ibo!!)(4lnectprt-_(a0_q9=8lzchccqx$%%"
+    DEBUG: "False"
+    ALLOWED_HOSTS: "localhost,127.0.0.1,*.awsapprunner.com"
+    DB_NAME: "saas_portal"
+    DB_USER: "postgres"
+    DB_PASSWORD: "Alpha123"
+    DB_HOST: "saas-portal-db.cdioocgoyyej.eu-north-1.rds.amazonaws.com"
+    DB_PORT: "5432"
