@@ -6,27 +6,46 @@ build:
       - pip3 install -r requirements.txt
     post-build:
       - python3 manage.py collectstatic --noinput
-env:
-  - name: DJANGO_SETTINGS_MODULE
-    value: "myproject.settings"
-  - name: SECRET_KEY
-    value: "django-insecure-wb&+eocg@n!ibo!!)(4lnectprt-_(a0_q9=8lzchccqx$%%"
-  - name: DEBUG
-    value: "False"
-  - name: ALLOWED_HOSTS
-    value: "localhost,127.0.0.1,*.awsapprunner.com"
-  - name: DB_NAME
-    value: "saas_portal"
-  - name: DB_USER
-    value: "postgres"
-  - name: DB_PASSWORD
-    value: "Alpha123"
-  - name: DB_HOST
-    value: "saas-portal-db.cdioocgoyyej.eu-north-1.rds.amazonaws.com"
-  - name: DB_PORT
-    value: "5432"
+  env:
+    - name: DJANGO_SETTINGS_MODULE
+      value: "myproject.settings"
+    - name: SECRET_KEY
+      value: "django-insecure-wb&+eocg@n!ibo!!)(4lnectprt-_(a0_q9=8lzchccqx$%%"
+    - name: DEBUG
+      value: "False"
+    - name: ALLOWED_HOSTS
+      value: "localhost,127.0.0.1,*.awsapprunner.com"
+    - name: DB_NAME
+      value: "saas_portal"
+    - name: DB_USER
+      value: "postgres"
+    - name: DB_PASSWORD
+      value: "Alpha123"
+    - name: DB_HOST
+      value: "saas-portal-db.cdioocgoyyej.eu-north-1.rds.amazonaws.com"
+    - name: DB_PORT
+      value: "5432"
 run:
   runtime-version: 3.11
   command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8080
   network:
     port: 8080
+  env:
+    - name: DJANGO_SETTINGS_MODULE
+      value: "myproject.settings"
+    - name: SECRET_KEY
+      value: "django-insecure-wb&+eocg@n!ibo!!)(4lnectprt-_(a0_q9=8lzchccqx$%%"
+    - name: DEBUG
+      value: "False"
+    - name: ALLOWED_HOSTS
+      value: "localhost,127.0.0.1,*.awsapprunner.com"
+    - name: DB_NAME
+      value: "saas_portal"
+    - name: DB_USER
+      value: "postgres"
+    - name: DB_PASSWORD
+      value: "Alpha123"
+    - name: DB_HOST
+      value: "saas-portal-db.cdioocgoyyej.eu-north-1.rds.amazonaws.com"
+    - name: DB_PORT
+      value: "5432"
