@@ -56,18 +56,37 @@ class DepartmentViewSet(viewsets.ModelViewSet):
         - Root admins see all departments
         - Department admins see their departments
         - Regular users see departments they are members of
+        - By default, only show direct customers (not reseller customers)
         """
         user = self.request.user
         
-        # Root admins can see all departments
+        # Start with departments of customer_type 'direct' by default
+        # Unless explicitly asked to include reseller customers
+        include_reseller = self.request.query_params.get('include_reseller') == 'true'
+        
+        base_query = Department.objects.all()
+        if not include_reseller:
+            base_query = base_query.filter(customer_type='direct')
+        
+        # Root admins can see all departments (filtered by customer_type)
         if user.is_root_admin:
-            return Department.objects.all()
-            
+            return base_query
+        
+        # For reseller admins, include their customers
+        if user.is_reseller_admin:
+            reseller_admin_of = user.reseller_admin.values_list('reseller', flat=True)
+            if reseller_admin_of:
+                reseller_departments = Department.objects.filter(
+                    reseller__reseller__in=reseller_admin_of,
+                    customer_type='reseller'
+                )
+                return reseller_departments
+        
         # Get departments where user is an admin
-        admin_departments = Department.objects.filter(departmentadmin__user=user)
+        admin_departments = base_query.filter(departmentadmin__user=user)
         
         # Get departments where user is a member
-        member_departments = Department.objects.filter(departmentuser__user=user)
+        member_departments = base_query.filter(departmentuser__user=user)
         
         # Combine querysets and remove duplicates
         return (admin_departments | member_departments).distinct()
